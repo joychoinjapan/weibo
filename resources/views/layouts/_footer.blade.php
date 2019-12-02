@@ -4,7 +4,7 @@
        毎日でプログラミング練習、更に上へ
     </a>
     <div class="float-right">
-        <a href="/about">会社概要</a>
+        <a href="{{route('about')}}">会社概要</a>
     </div>
 
 </footer>
