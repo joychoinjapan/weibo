@@ -17,3 +17,7 @@ Route::get('/','StaticPagesController@home')->name('home');
 Route::get('/help','StaticPagesController@help')->name('help');
 //概要
 Route::get('/about','StaticPagesController@about')->name('about');
+
+
+//新規登録
+Route::get('signup','UserController@create')->name('signup');
