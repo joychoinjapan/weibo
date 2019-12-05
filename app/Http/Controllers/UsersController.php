@@ -10,6 +10,7 @@ class UsersController extends Controller
     //新規登録画面
     public function create()
     {
+
         return view('users.create');
     }
 
