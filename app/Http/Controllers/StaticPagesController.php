@@ -21,7 +21,6 @@ class StaticPagesController extends Controller
     }
 
 
-
     //概要
     public function about()
     {
