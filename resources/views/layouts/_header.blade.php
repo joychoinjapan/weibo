@@ -9,7 +9,7 @@
                         {{\Illuminate\Support\Facades\Auth::user()->name}}
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">プロフィール</a>
+                        <a class="dropdown-item" href="{{route('users.show',\Illuminate\Support\Facades\Auth::user())}}">プロフィール</a>
                         <a class="dropdown-item" href="#">プロフィールを編集</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" id="logout" href="#">
