@@ -38,3 +38,16 @@ Route::resource('users','UsersController');
 //Route::patch('/user/{user}','UsersController@update')->name('users.update');
 ////削除
 //Route::delete('/users/{user}','UsersController@destory')->name('users.destroy');
+
+
+//ログインログアウト処理
+
+//ログイン画面
+Route::get('login','SessionController@create')->name('login');
+
+
+//ログイン処理
+Route::post('login','SessionController@store')->name('login');
+
+//ログアウト
+Route::delete('login','SessionController@destroy')->name('logout');
