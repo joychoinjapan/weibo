@@ -44,5 +44,36 @@ class UsersController extends Controller
 
     }
 
+    //プロフィール編集画面
+    public function edit(User $user)
+    {
+        return view('users.edit', compact('user'));
+    }
+
+    //更新処理
+    public function update(User $user, Request $request)
+    {
+        //nullable passwordを更新しなくて可能
+        $this->validate($request, [
+            'name' => 'required|max:50',
+            'password' => 'nullable|confirmed|min:6'
+        ]);
+
+        $data = [];
+
+        $data['name'] = $request->name;
+
+        if ($request->password) {
+
+            $data['password'] = bcrypt($request->password);
+
+        }
+        $user->update($data);
+
+        session()->flash('success', 'プロフィールを変更しました！');
+
+        return redirect()->route('users.show', $user->id);
+    }
+
 
 }

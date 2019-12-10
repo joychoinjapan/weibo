@@ -10,7 +10,7 @@
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{{route('users.show',\Illuminate\Support\Facades\Auth::user())}}">プロフィール</a>
-                        <a class="dropdown-item" href="#">プロフィールを編集</a>
+                        <a class="dropdown-item" href="{{route('users.edit',\Illuminate\Support\Facades\Auth::user())}}">プロフィールを編集</a>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" id="logout" href="#">
                         <form action="{{route('logout')}}" method="post" class="m-0">
