@@ -17,9 +17,17 @@ class UsersController extends Controller
 
         //ログインしていないユーザー（ゲストユーザー）のみ新規登録可能
         $this->middleware('guest',[
-            'except'=>['create','store']
+            'only'=>['create','store']
         ]);
     }
+
+    //全てのユーザーを列挙
+    public function index()
+    {
+        $users = User::paginate(10);
+        return view('users.index',compact('users'));
+    }
+
 
 
     //新規登録画面
