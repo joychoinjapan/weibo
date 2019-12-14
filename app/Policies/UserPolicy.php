@@ -13,6 +13,11 @@ class UserPolicy
     public function update(User $currentUser,User $user)
     {
         return $currentUser->id === $user->id;
+    }
 
+    //管理員権限だけユーザーを削除できる
+    public function destroy(User $currentUser,User $user)
+    {
+        return $currentUser->is_admin && $currentUser->id !== $user->id;
     }
 }

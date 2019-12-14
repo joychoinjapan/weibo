@@ -12,7 +12,7 @@ class UsersController extends Controller
     {
         //ログインしていないユーザー（ゲストユーザー）は新規登録とプロフィール閲覧は可能
         $this->middleware('auth',[
-            'except'=>['show','create','store']
+            'except'=>['show','create','store','index']
         ]);
 
         //ログインしていないユーザー（ゲストユーザー）のみ新規登録可能
@@ -33,7 +33,6 @@ class UsersController extends Controller
     //新規登録画面
     public function create()
     {
-
         return view('users.create');
     }
 
@@ -90,15 +89,22 @@ class UsersController extends Controller
         $data['name'] = $request->name;
 
         if ($request->password) {
-
             $data['password'] = bcrypt($request->password);
-
         }
         $user->update($data);
 
         session()->flash('success', 'プロフィールを変更しました！');
 
         return redirect()->route('users.show', $user->id);
+    }
+
+    //delete
+    public function destroy(User $user)
+    {
+        $this->authorize('destroy',$user);
+        $user->delete();
+        session()->flash('success','ユーザーを削除しました');
+        return back();
     }
 
 
