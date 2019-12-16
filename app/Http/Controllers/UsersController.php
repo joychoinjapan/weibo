@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use function foo\func;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class UsersController extends Controller
 {
@@ -58,8 +60,8 @@ class UsersController extends Controller
 
         ]);
 
-        Auth::login($user);
-        session()->flash('success', 'ご登録、ありがとうございました！');
+        $this->sendEmailConfirmation($user);
+        session()->flash('success', '認証メールを発送しました！ご登録のメールアドレスにで会員登録を完了させてください');
         return redirect()->route('users.show', $user);
 
 
@@ -105,6 +107,34 @@ class UsersController extends Controller
         $user->delete();
         session()->flash('success','ユーザーを削除しました');
         return back();
+    }
+
+    //メールアドレスを認証
+    public function confirmEmail($token)
+    {
+        $user = User::where('activation_token',$token)->firstorFail();
+
+        $user -> activated = true;
+        $user -> activation_token = null;
+        $user -> save();
+
+        Auth::login($user);
+        session()->flash('success','メールを認証しました。');
+        return redirect()->route('users.show',$user);
+    }
+
+    protected function sendEmailConfirmation($user)
+    {
+      $view = 'emails.confirm';
+      $data = compact('user');
+      $from = 'summer@example.com';
+      $name = 'Summer';
+      $to = $user->email;
+      $subject = "[Weibo App]会員登録を完了させてください";
+
+      Mail::send($view,$data,function ($message)use($from,$name,$to,$subject){
+          $message->from($from,$name)->to($to)->subject($subject);
+      });
     }
 
 

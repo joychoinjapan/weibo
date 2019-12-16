@@ -51,3 +51,7 @@ Route::post('login','SessionController@store')->name('login');
 
 //ログアウト
 Route::delete('login','SessionController@destroy')->name('logout');
+
+//Eメール認証
+Route::get('signup/confirm/{token}','UsersController@confirmEmail')->name('confirm_email');
+
