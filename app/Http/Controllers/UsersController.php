@@ -7,6 +7,7 @@ use function foo\func;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Carbon;
 
 class UsersController extends Controller
 {
@@ -14,7 +15,7 @@ class UsersController extends Controller
     {
         //ログインしていないユーザー（ゲストユーザー）は新規登録とプロフィール閲覧は可能
         $this->middleware('auth',[
-            'except'=>['show','create','store','index']
+            'except'=>['show','create','store','index','confirmEmail']
         ]);
 
         //ログインしていないユーザー（ゲストユーザー）のみ新規登録可能
@@ -113,9 +114,9 @@ class UsersController extends Controller
     public function confirmEmail($token)
     {
         $user = User::where('activation_token',$token)->firstorFail();
-
         $user -> activated = true;
         $user -> activation_token = null;
+        $user -> email_verified_at = Carbon::now();
         $user -> save();
 
         Auth::login($user);

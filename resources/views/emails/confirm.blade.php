@@ -8,7 +8,9 @@
 
 <p>
     　下記URLをクリックし、登録手続きを完了させて下さい。
-    <a href="{{route('confirm_email',$user->activation_token)}}"></a>
+    <a href="{{route('confirm_email',$user->activation_token)}}">
+        {{route('confirm_email',$user->activation_token)}}
+    </a>
 </p>
 <p>
     このメールにお心当たりがない場合やご不明な点がございましたら、
