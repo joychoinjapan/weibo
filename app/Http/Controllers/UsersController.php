@@ -128,13 +128,12 @@ class UsersController extends Controller
     {
       $view = 'emails.confirm';
       $data = compact('user');
-      $from = 'summer@example.com';
       $name = 'Summer';
       $to = $user->email;
       $subject = "[Weibo App]会員登録を完了させてください";
 
-      Mail::send($view,$data,function ($message)use($from,$name,$to,$subject){
-          $message->from($from,$name)->to($to)->subject($subject);
+      Mail::send($view,$data,function ($message)use($name,$to,$subject){
+          $message->to($to)->subject($subject);
       });
     }
 
