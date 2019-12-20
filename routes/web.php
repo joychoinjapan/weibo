@@ -51,3 +51,17 @@ Route::post('login','SessionController@store')->name('login');
 
 //ログアウト
 Route::delete('login','SessionController@destroy')->name('logout');
+
+//Eメール認証
+Route::get('signup/confirm/{token}','UsersController@confirmEmail')->name('confirm_email');
+
+//パスワードリセットフォーム
+Route::get('password/reset','Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+
+//リセットメールを発送
+Route::post('password/reset/email','Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+
+//リセット操作
+Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+//パスワード更新フォーム
+Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');

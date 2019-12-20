@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use function foo\func;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Carbon;
 
 class UsersController extends Controller
 {
@@ -12,7 +15,7 @@ class UsersController extends Controller
     {
         //ログインしていないユーザー（ゲストユーザー）は新規登録とプロフィール閲覧は可能
         $this->middleware('auth',[
-            'except'=>['show','create','store','index']
+            'except'=>['show','create','store','index','confirmEmail']
         ]);
 
         //ログインしていないユーザー（ゲストユーザー）のみ新規登録可能
@@ -58,8 +61,8 @@ class UsersController extends Controller
 
         ]);
 
-        Auth::login($user);
-        session()->flash('success', 'ご登録、ありがとうございました！');
+        $this->sendEmailConfirmation($user);
+        session()->flash('success', '認証メールを発送しました！ご登録のメールアドレスにで会員登録を完了させてください');
         return redirect()->route('users.show', $user);
 
 
@@ -105,6 +108,33 @@ class UsersController extends Controller
         $user->delete();
         session()->flash('success','ユーザーを削除しました');
         return back();
+    }
+
+    //メールアドレスを認証
+    public function confirmEmail($token)
+    {
+        $user = User::where('activation_token',$token)->firstorFail();
+        $user -> activated = true;
+        $user -> activation_token = null;
+        $user -> email_verified_at = Carbon::now();
+        $user -> save();
+
+        Auth::login($user);
+        session()->flash('success','メールを認証しました。');
+        return redirect()->route('users.show',$user);
+    }
+
+    protected function sendEmailConfirmation($user)
+    {
+      $view = 'emails.confirm';
+      $data = compact('user');
+      $name = 'Summer';
+      $to = $user->email;
+      $subject = "[Weibo App]会員登録を完了させてください";
+
+      Mail::send($view,$data,function ($message)use($name,$to,$subject){
+          $message->to($to)->subject($subject);
+      });
     }
 
 
