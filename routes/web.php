@@ -65,3 +65,6 @@ Route::post('password/reset/email','Auth\ForgotPasswordController@sendResetLinkE
 Route::get('password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
 //パスワード更新フォーム
 Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
+
+//weiboを発表する
+Route::resource('statuses','StatusesController',['only'=>['store','destroy']]);

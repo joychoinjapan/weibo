@@ -1,6 +1,27 @@
 @extends('layouts.default')
 @section('title','ホーム')
 @section('content')
+    @if(\Illuminate\Support\Facades\Auth::check())
+        <div class="row">
+            <div class="offset-md-1 col-md-8">
+                <section class="status_form">
+                    @include('shared._status_form')
+                </section>
+            </div>
+            <div class="col-md-2">
+                <section class="user_info">
+                    @include('shared._user_info',['user'=>$user ?? ''])
+                </section>
+            </div>
+        </div>
+        <div class="row">
+            <div class="offset-md-1 col-md-8">
+                <section class="status_form">
+                    @include('shared._feed')
+                </section>
+            </div>
+        </div>
+    @else
     <div class="jumbotron">
         <h1>Hello Laravel</h1>
         <p class="lead">今ご覧になるのは<a href="https://learnku.com/courses/laravel-essential-training">
@@ -14,4 +35,5 @@
             <a class="btn btn-lg btn-success" href={{route('users.create')}} role="button">今すぐアカウント作成</a>
         </p>
     </div>
+    @endif
 @stop
