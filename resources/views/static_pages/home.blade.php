@@ -7,10 +7,12 @@
                 <section class="status_form">
                     @include('shared._status_form')
                 </section>
+                <h4>投稿リスト</h4>
+                <hr>
             </div>
             <div class="col-md-2">
                 <section class="user_info">
-                    @include('shared._user_info',['user'=>$user ?? ''])
+                    @include('shared._user_info',['user'=>\Illuminate\Support\Facades\Auth::user() ?? ''])
                 </section>
             </div>
         </div>
