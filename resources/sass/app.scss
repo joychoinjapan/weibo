@@ -70,6 +70,38 @@ footer{
             max-width: 100px;
         }
     }
+    .user_item{
+        min-width: 200px;
+    }
+
+
+    .stats{
+        overflow: auto;
+        margin-top: 0;
+        a {
+            display: block;
+            text-align: left;
+            width: auto;
+            font-size: 0.7em;
+            color: #3d66b8;
+            &:hover {
+                text-decoration: none;
+                color: #82c2d1;
+            }
+        }
+
+        strong{
+
+            font-size: 1em;
+            color: #245ab8;
+        }
+
+
+
+    }
+
+
+
 
 
 
