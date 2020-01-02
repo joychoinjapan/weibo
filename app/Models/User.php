@@ -90,6 +90,7 @@ class User extends Authenticatable
 
     //フォローの取り消し
     public function unfollow($user_ids)
+
     {
         if( ! is_array($user_ids)){
             $user_ids=compact('user_ids');
@@ -100,7 +101,7 @@ class User extends Authenticatable
     //フォローしていますか
     public function isFollowing($user_id)
     {
-        return $this->followings()->contains($user_id);
+        return $this->followings()->get()->contains($user_id);
     }
 
 

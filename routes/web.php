@@ -74,3 +74,11 @@ Route::get('/users/{user}/followings','UsersController@followings')->name('users
 
 //フォロワー
 Route::get('/users/{user}/followers','UsersController@followers')->name('users.followers');
+
+
+//フォロする
+Route::post('/users/followers/{user}','FollowersController@store')->name('followers.store');
+
+
+//フォロの取り消し
+Route::delete('/users/followers/{user}','FollowersController@destroy')->name('followers.destroy');
