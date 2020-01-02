@@ -68,3 +68,9 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('passw
 
 //weiboを発表する
 Route::resource('statuses','StatusesController',['only'=>['store','destroy']]);
+
+//フォローしている人
+Route::get('/users/{user}/followings','UsersController@followings')->name('users.followings');
+
+//フォロワー
+Route::get('/users/{user}/followers','UsersController@followers')->name('users.followers');
