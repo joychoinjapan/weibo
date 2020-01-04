@@ -9,17 +9,14 @@
                 </section>
                 <h4>投稿リスト</h4>
                 <hr>
+                @include('shared._feed')
             </div>
-            <div class="col-md-2">
+            <div class="col-md-3 user_item">
                 <section class="user_info">
                     @include('shared._user_info',['user'=>\Illuminate\Support\Facades\Auth::user() ?? ''])
                 </section>
-            </div>
-        </div>
-        <div class="row">
-            <div class="offset-md-1 col-md-8">
-                <section class="status_form">
-                    @include('shared._feed')
+                <section class="stats px-5">
+                    @include('shared._stats',['user'=>\Illuminate\Support\Facades\Auth::user() ?? ''])
                 </section>
             </div>
         </div>
